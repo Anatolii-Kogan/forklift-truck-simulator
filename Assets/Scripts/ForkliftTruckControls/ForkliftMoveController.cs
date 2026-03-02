@@ -69,11 +69,11 @@ namespace Forklift.Player
             _joint.angularYMotion = ConfigurableJointMotion.Locked;
             _joint.angularZMotion = ConfigurableJointMotion.Locked;
 
-            _joint.axis = transform.right;
-            _joint.secondaryAxis = Up;
+            _joint.axis = Vector3.right;
+            _joint.secondaryAxis = Vector3.up;
 
-            float mid = 0.5f * (_minPosition + _maxPosition);
-            Vector3 midWorld = _anchor.position + Up * mid;
+            var mid = 0.5f * (_minPosition + _maxPosition);
+            var midWorld = _anchor.position + Up * mid;
 
             _joint.anchor = _rigidbody.transform.InverseTransformPoint(midWorld);
             _joint.connectedAnchor = _connectedBody.transform.InverseTransformPoint(midWorld);

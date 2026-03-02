@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace Forklift.Components
 {
-    public interface IRearWheelsController : ITruckComponent
+    public interface IRearWheelsController
     {
         public float Angle { get; }
-        public Vector3 Direction { get; }
 
         public event Action<Vector3> OnDirectionChanged;
     }
@@ -16,8 +15,9 @@ namespace Forklift.Components
         [SerializeField] private float _rotateSpeed;
         [SerializeField] private float _maxAngle;
 
+        private Vector3 _direction = Vector3.forward;
+
         public float Angle { get; private set; }
-        public Vector3 Direction { get; private set; } = Vector3.forward;
 
         public event Action<Vector3> OnDirectionChanged;
 
@@ -35,8 +35,8 @@ namespace Forklift.Components
 
         private void RecomputeDirection()
         {
-            Direction = Quaternion.AngleAxis(Angle, Vector3.up) * Vector3.forward;
-            OnDirectionChanged?.Invoke(Direction);
+            _direction = Quaternion.AngleAxis(Angle, Vector3.up) * Vector3.forward;
+            OnDirectionChanged?.Invoke(_direction);
         }
 
         private void OnDestroy()
